@@ -15,6 +15,9 @@ server.get('/', (req, res) => {
   }
 });
 
+server.post('/notes', async (req, res) => {
+  let note = req.body;
+
 server.get('/notes/:id', (req, res) => {
     const { id } = req.params;
     try {
@@ -27,6 +30,7 @@ server.get('/notes/:id', (req, res) => {
         .send({ error: 'Unable to retrieve this note. Please try again later.' });
     }
   });
+
   
 
 const port = 6000;
