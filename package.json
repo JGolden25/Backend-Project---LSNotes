@@ -1,0 +1,11 @@
+{
+  "name": "y",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/JGolden25/Backend-Project---LSNotes.git",
+  "author": "Joseph Chretien-Golden <joechre@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "knex": "^0.15.2"
+  }
+}
