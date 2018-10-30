@@ -1,9 +1,16 @@
 const express = require('express');
 const db = require('./data/db');
+const knex = require('knex');
+const knexConfig = require('./knexfile.js');
+const cors = require('cors');
 const server = express();
 server.use(express.json());
 
-server.get('/', (req, res) => {
+server.use(helmet());
+server.use(cors());
+
+
+server.get('/notes', (req, res) => {
   try {
     const notes = await db.select().from('notes');
     res.status(200).json(notes);
@@ -15,7 +22,7 @@ server.get('/', (req, res) => {
   }
 });
 
-server.post('/notes', async (req, res) => {
+server.post('/notes/', async (req, res) => {
   let note = req.body;
   if (!'title' in note) {
     res.status(400).send({ error: '' });
@@ -37,6 +44,12 @@ server.get('/notes/:id', (req, res) => {
         .send({ error: 'Unable to retrieve this note. Please try again later.' });
     }
   });
+
+  server.delete('/notes/:id', (req, res) => {
+    const id = req.params.id;
+    db('notes')
+      .where({ id: id })
+      .del()
 
   
 
