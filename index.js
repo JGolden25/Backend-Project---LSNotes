@@ -17,6 +17,13 @@ server.get('/', (req, res) => {
 
 server.post('/notes', async (req, res) => {
   let note = req.body;
+  if (!'title' in note) {
+    res.status(400).send({ error: '' });
+  } else if (note.title.length > 40) {
+    res
+      .status(400)
+      .send({ error: '' });
+  }
 
 server.get('/notes/:id', (req, res) => {
     const { id } = req.params;
