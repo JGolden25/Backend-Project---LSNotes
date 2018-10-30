@@ -45,12 +45,25 @@ server.get('/notes/:id', (req, res) => {
     }
   });
 
+  
+  server.put('/notes/:id', (req, res) => {
+    const id = req.params.id;
+    console.log(id);
+    const title = req.body.title;
+    const body = req.body.body;
+    const note = { title, body };
+    console.log(note);
+    if (!note.title || !note.body) {
+      res.status(400).json({ error: 'note must have a title and body' });
+    }
+
+  //delete  by id
   server.delete('/notes/:id', (req, res) => {
     const id = req.params.id;
     db('notes')
       .where({ id: id })
       .del()
-      .then(delid => {
+      .then(deleteid => {
         db('notes')
           .then(note => {
             res.status(200).json(note);
