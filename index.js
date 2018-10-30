@@ -10,7 +10,7 @@ server.use(helmet());
 server.use(cors());
 
 
-server.get('/notes', (req, res) => {
+server.get('/notes', async (req, res) => {
   try {
     const notes = await db.select().from('notes');
     res.status(200).json(notes);
@@ -45,8 +45,8 @@ server.get('/notes/:id', (req, res) => {
     }
   });
 
-  
-  server.put('/notes/:id', (req, res) => {
+
+  server.put('/notes/:id', async (req, res) => {
     const id = req.params.id;
     console.log(id);
     const title = req.body.title;
