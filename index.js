@@ -50,7 +50,19 @@ server.get('/notes/:id', (req, res) => {
     db('notes')
       .where({ id: id })
       .del()
-
+      .then(delid => {
+        db('notes')
+          .then(note => {
+            res.status(200).json(note);
+          })
+          .catch(err => {
+            res.status(400).json({ error: 'Can not grab notes' });
+          });
+      })
+      .catch(err => {
+        res.status(400).json({ error: 'could not delete note' });
+      });
+  });
   
 
 const port = 6000;
