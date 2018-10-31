@@ -1,13 +1,16 @@
 const express = require('express');
-const db = require('./data/db');
+const db = knex(knexConfig.development);
 const knex = require('knex');
 const knexConfig = require('./knexfile.js');
 const cors = require('cors');
 const server = express();
 server.use(express.json());
 
+const corsOptions = {
+  origin: 'http://localhost:'
+};
 server.use(helmet());
-server.use(cors());
+server.use(cors(corsOptions));
 
 
 server.get('/notes', async (req, res) => {
@@ -42,7 +45,7 @@ server.post('/notes/', async (req, res) => {
   }
 });
 
-server.get('/notes/:id', (req, res) => {
+server.get('/notes/:id', async (req, res) => {
     const { id } = req.params;
     try {
       const note = await db('notes').where({ id });
@@ -88,7 +91,7 @@ server.get('/notes/:id', (req, res) => {
   });
   
 
-const port = 6000;
+const port = 5000;
 server.listen(port, function() {
   console.log(`\n=== Web API Listening on http://localhost:${port} ===\n`);
 });
