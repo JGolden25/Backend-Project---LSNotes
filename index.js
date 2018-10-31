@@ -15,7 +15,7 @@ server.get('/notes', async (req, res) => {
     const notes = await db.select().from('notes');
     res.status(200).json(notes);
   } catch (err) {
-    console.log('', err);
+    console.log('error GETTING', err);
     res
       .status(500)
       .send({ error: 'Unable to retrieve notes. Please try again later.' });
@@ -25,12 +25,22 @@ server.get('/notes', async (req, res) => {
 server.post('/notes/', async (req, res) => {
   let note = req.body;
   if (!'title' in note) {
-    res.status(400).send({ error: '' });
+    res.status(400).send({ error: 'Title required' });
   } else if (note.title.length > 40) {
     res
       .status(400)
-      .send({ error: '' });
+      .send({ error: 'Title must be shorter than 40 chars' });
   }
+  try {
+    await db.insert(note).into('notes');
+    res.status(201).json({ msg: 'Your note was successfully saved.' });
+  } catch (err) {
+    console.log('/notes POST error:', err);
+    res
+      .status(500)
+      .send({ error: 'Note was not saved. Try again later.' });
+  }
+});
 
 server.get('/notes/:id', (req, res) => {
     const { id } = req.params;
