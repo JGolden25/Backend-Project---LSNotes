@@ -6,6 +6,7 @@
   "author": "Joseph Chretien-Golden <joechre@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "cors": "^2.8.4",
     "knex": "^0.15.2"
   }
 }
