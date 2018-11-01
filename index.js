@@ -7,7 +7,7 @@ const server = express();
 server.use(express.json());
 
 const corsOptions = {
-  origin: 'http://localhost:'
+  origin: 'http://localhost:7777'
 };
 server.use(helmet());
 server.use(cors(corsOptions));
@@ -91,7 +91,9 @@ server.get('/notes/:id', async (req, res) => {
   });
   
 
-const port = 5000;
+const port = 7777;
 server.listen(port, function() {
   console.log(`\n=== Web API Listening on http://localhost:${port} ===\n`);
-});
+}
+
+)})

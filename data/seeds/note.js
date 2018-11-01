@@ -3,7 +3,7 @@ exports.seed = function(knex, Promise) {
       .del()
       .then(function() {
         return knex('notes').insert([
-          { id: 1, title: 'A Note!', text: 'Hello from Noteland' }
+          { id: 1, title: 'A Note!', content: 'Hello from Noteland' }
         ]);
       });
   };
